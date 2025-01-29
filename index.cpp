@@ -26,6 +26,10 @@ ___________              ________                .____    .__          __
     )" << "\n";
 }
 
+//Deklarimi inicial per perdorimin e funksioneve
+void addTask(Task tasks[], int& taskCount);
+void markTaskCompleted(Task tasks[], int taskCount);
+
 //Nr maksimal per tasks
 const int MAX_TASKS = 100;
 
@@ -51,6 +55,44 @@ int main() {
     } while (promptReturnToMenu());
 
     return 0;
+}
+
+// Funksioni per te shtuar taks
+void addTask(Task tasks[], int& taskCount) {
+    if (taskCount >= MAX_TASKS) {
+        cout << "Task list is full. Cannot add more tasks.\n";
+        return;
+    }
+
+    cout << "Enter the task description: ";
+    string description;
+    getline(cin, description);
+
+    tasks[taskCount].description = description;
+    tasks[taskCount].status = PENDING;
+    taskCount++;
+
+    cout << "Task added successfully!\n";
+}
+
+
+//Statusi per taskun
+void markTaskCompleted(Task tasks[], int taskCount) {
+    if (taskCount == 0) {
+        cout << "No tasks available to mark as completed.\n";
+        return;
+    }
+
+    int taskIndex;
+    cout << "Enter the index of the task to mark as completed: ";
+    cin >> taskIndex;
+
+    if (taskIndex >= 0 && taskIndex < taskCount) {
+        tasks[taskIndex].status = COMPLETED;
+        cout << "Task marked as completed!\n";
+    } else {
+        cout << "Invalid task index.\n";
+    }
 }
 
 
