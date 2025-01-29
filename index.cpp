@@ -29,6 +29,8 @@ ___________              ________                .____    .__          __
 //Deklarimi inicial per perdorimin e funksioneve
 void addTask(Task tasks[], int& taskCount);
 void markTaskCompleted(Task tasks[], int taskCount);
+void deleteTask(Task tasks[], int& taskCount);
+void displayTasks(const Task tasks[], int taskCount);
 
 //Nr maksimal per tasks
 const int MAX_TASKS = 100;
@@ -83,9 +85,12 @@ void markTaskCompleted(Task tasks[], int taskCount) {
         return;
     }
 
+    displayTasks(tasks, taskCount);
+
     int taskIndex;
     cout << "Enter the index of the task to mark as completed: ";
     cin >> taskIndex;
+    
 
     if (taskIndex >= 0 && taskIndex < taskCount) {
         tasks[taskIndex].status = COMPLETED;
@@ -95,6 +100,43 @@ void markTaskCompleted(Task tasks[], int taskCount) {
     }
 }
 
+// funksioni per fshirjen e nje tasku
+void deleteTask(Task tasks[], int& taskCount) {
+    if (taskCount == 0) {
+        cout << "No tasks available to delete.\n";
+        return;
+    }
+
+    displayTasks(tasks, taskCount);
+
+    int taskIndex;
+    cout << "Enter the index of the task to delete: ";
+    cin >> taskIndex;
+
+    if (taskIndex >= 0 && taskIndex < taskCount) {
+        for (int i = taskIndex; i < taskCount - 1; i++) {
+            tasks[i] = tasks[i + 1];
+        }
+        taskCount--;
+        cout << "Task deleted successfully!\n";
+    } else {
+        cout << "Invalid task index.\n";
+    }
+}
+
+// funksioni i paraqitjes se tasks
+void displayTasks(const Task tasks[], int taskCount) {
+    if (taskCount == 0) {
+        cout << "No tasks available.\n";
+        return;
+    }
+
+    cout << "\n--- Tasks ---\n";
+    for (int i = 0; i < taskCount; i++) {
+        cout << i << ". " << tasks[i].description << " - "
+             << (tasks[i].status == PENDING ? "Pending" : "Completed") << "\n";
+    }
+}
 
 //Pyesim user a deshiron te vazhdoj ne menu
 bool promptReturnToMenu() {
