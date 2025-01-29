@@ -31,6 +31,7 @@ void addTask(Task tasks[], int& taskCount);
 void markTaskCompleted(Task tasks[], int taskCount);
 void deleteTask(Task tasks[], int& taskCount);
 void displayTasks(const Task tasks[], int taskCount);
+bool promptReturnToMenu();
 
 //Nr maksimal per tasks
 const int MAX_TASKS = 100;
@@ -53,6 +54,26 @@ int main() {
         cout << "Enter your choice: ";
         cin >> choice;
         cin.ignore();
+
+        switch (choice) {
+            case 1:
+                addTask(tasks, taskCount);
+                break;
+            case 2:
+                markTaskCompleted(tasks, taskCount);
+                break;
+            case 3:
+                deleteTask(tasks, taskCount);
+                break;
+            case 4:
+                displayTasks(tasks, taskCount);
+                break;
+            case 5:
+                cout << "Exiting the program. Goodbye!\n";
+                return 0;
+            default:
+                cout << "Invalid choice. Please try again.\n";
+        }
 
     } while (promptReturnToMenu());
 
